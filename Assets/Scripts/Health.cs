@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour {
 
-    public int hp = 1;
-    public GameObject explosion;
+    public int hp = 1;                              //플레이어 hp
+    public GameObject explosion;                    //explosion이펙트 오브젝트 
 
     //트리거와 충돌되면 자동으로 호출되는 함수 
     private void OnTriggerEnter2D(Collider2D other)

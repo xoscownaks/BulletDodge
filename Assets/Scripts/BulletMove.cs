@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class BulletMove : MonoBehaviour {
-	public float m_speed = 5f;
-	public Vector2 m_direction;
-	public bool m_isUsed = false;
+	public float m_speed = 5f;              //총알 속도
+	public Vector2 m_direction;             //총알의 방향
+	public bool m_isUsed = false;           //해당 총알이 사용중인가
 
-	bool onScreen = false; //화면에 들어왔는가?
-	bool onScreenOut = false; //화면에서 나갔는가?
+	bool onScreen = false; //총알이 화면에 들어왔는가?    true = 사용중 
+	bool onScreenOut = false; //총알이 화면에서 나갔는가? true = 사용끝 
 	Rigidbody2D m_rigid;
 	
 	void Start () {

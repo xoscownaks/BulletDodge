@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BulletManager : MonoBehaviour {
-	public static BulletManager instance;
-	public GameObject BulletPrefab;
-	public Transform m_Player;
-	public int maxBullet = 100;
+	public static BulletManager instance;           //자신의 객체(인스턴스)
+	public GameObject BulletPrefab;                 //생성한 총알 prefab
+	public Transform m_Player;                      //플레이어의 위치값
+	public int maxBullet = 100;                     //최대 총알 수
 
-	List<BulletMove> BulletList;
-	Vector2 m_LeftBottom;
-	Vector2 m_RightTop;
+	List<BulletMove> BulletList;                    //생성된 총알을 저장할 배열 변수
+	Vector2 m_LeftBottom;                           //화면의 왼쪽 좌표 저장
+	Vector2 m_RightTop;                             //화면의 오른쪽 좌표 저장
 
+    //스태틱은 선언과 동시에 메모리 올라감
+    //스태틱이여서 인스턴스가 하나여야하지만 두개이상이면 안된다.
+    //자기 자신을 바로 참조하개 하여 외부에서 참조할수 있게 한다(싱글톤)
 	void Awake(){
 		if (instance) {
 			Debug.Log ("다중인스턴스 실행중입니다. 주의하세요");
@@ -38,7 +41,7 @@ public class BulletManager : MonoBehaviour {
             return;
         }
 		Vector2 pos = GetRandomPosition (); //랜덤한 위치를 받아와서
-		Vector2 direction = (Vector2)m_Player.position - pos;
+		Vector2 direction = (Vector2)m_Player.position - pos; //플레이어 에게 향하도록 방향 조절 
 
 		BulletMove selectedBullet = BulletList.Find (o => o.m_isUsed == false);
 		//현재 미사용중인 총알을 찾아서
