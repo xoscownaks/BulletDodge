@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;         //자신의 객체 참조변수 
 	public float m_generateTerm = 1.5f;         //총알 생성 텀 
 	public float[] levels;                      //시간에 따른 레벨 조정 변수
 	public int[] bulletCount;                   //총알의 개수 
+
+    public Text timeText;                       //플레이어의 행동한 시간
+    public Text finalText;                      //마지막 죽은 시간
+    public CanvasGroup gameOverPanel;
 
 	int index = 0;                              //현재 levels의 수
 	float m_currentTime;                        //현재 진행중인 시간
@@ -27,7 +32,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
+        if (m_gameover)
+        {
+            return;
+        }
 		m_currentTime += Time.deltaTime;
+        //소수 2자리까지 초를 구한다 
+        timeText.text = "Time :" + (Mathf.Round(m_currentTime * 100) / 100).ToString() ;
+        
         //설정한 시간이 지나면 levels을 up시킨다 
 		if (m_currentTime > levels [index] && (index < levels.Length - 1)) {
 			index++;
@@ -46,6 +58,14 @@ public class GameManager : MonoBehaviour {
     public void SetGameOver()
     {
         m_gameover = true;
+        gameOverPanel.alpha = 1;
+        gameOverPanel.interactable = true;
+        finalText.text = "Final Time : " + (Mathf.Round(m_currentTime * 100) / 100).ToString();
+    }
 
+    public void Restart()
+    {
+        //현재 신을 다시 로드 
+        Application.LoadLevel (Application.loadedLevel);
     }
 }
